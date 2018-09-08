@@ -1,6 +1,6 @@
 <p align="center">
-<img 
-    src="logo.png" 
+<img
+    src="logo.png"
     width="240" height="78" border="0" alt="SJSON">
 <br>
 <a href="https://travis-ci.org/tidwall/sjson"><img src="https://img.shields.io/travis/tidwall/sjson.svg?style=flat-square" alt="Build Status"></a>
@@ -9,7 +9,7 @@
 
 <p align="center">set a json value quickly</a></p>
 
-SJSON is a Go package that provides a [very fast](#performance) and simple way to set a value in a json document. The purpose for this library is to provide efficient json updating for the [SummitDB](https://github.com/tidwall/summitdb) project. 
+SJSON is a Go package that provides a [very fast](#performance) and simple way to set a value in a json document. The purpose for this library is to provide efficient json updating for the [SummitDB](https://github.com/tidwall/summitdb) project.
 For quickly retrieving json values check out [GJSON](https://github.com/tidwall/gjson).
 
 For a command line interface check out [JJ](https://github.com/tidwall/jj).
@@ -30,9 +30,9 @@ This will retrieve the library.
 
 Set a value
 -----------
-Set sets the value for the specified path. 
-A path is in dot syntax, such as "name.last" or "age". 
-This function expects that the json is well-formed and validated. 
+Set sets the value for the specified path.
+A path is in dot syntax, such as "name.last" or "age".
+This function expects that the json is well-formed and validated.
 Invalid json will not panic, but it may return back unexpected results.
 Invalid paths may return an error.
 
@@ -80,10 +80,10 @@ The dot and colon characters can be escaped with '\'.
 "friends.1.last"     >> "Craig"
 ```
 
-The `-1` key can be used to append a value to an existing array:
+The `+1` key can be used to append a value to an existing array:
 
 ```
-"children.-1"  >> appends a new value to the end of the children array
+"children.+1"  >> appends a new value to the end of the children array
 ```
 
 Normally number keys are used to modify arrays, but it's possible to force a numeric object key by using the colon character:
@@ -168,9 +168,9 @@ println(value)
 // {"friends":["Andy","Carol","Sara"]
 ```
 
-Append an array value by using the `-1` key in a path:
+Append an array value by using the `+1` key in a path:
 ```go
-value, _ := sjson.Set(`{"friends":["Andy","Carol"]}`, "friends.-1", "Sara")
+value, _ := sjson.Set(`{"friends":["Andy","Carol"]}`, "friends.+1", "Sara")
 println(value)
 
 // Output:
@@ -206,7 +206,7 @@ println(value)
 
 Delete the last array value:
 ```go
-value, _ := sjson.Delete(`{"friends":["Andy","Carol"]}`, "friends.-1")
+value, _ := sjson.Delete(`{"friends":["Andy","Carol"]}`, "friends.+1")
 println(value)
 
 // Output:
@@ -215,8 +215,8 @@ println(value)
 
 ## Performance
 
-Benchmarks of SJSON alongside [encoding/json](https://golang.org/pkg/encoding/json/), 
-[ffjson](https://github.com/pquerna/ffjson), 
+Benchmarks of SJSON alongside [encoding/json](https://golang.org/pkg/encoding/json/),
+[ffjson](https://github.com/pquerna/ffjson),
 [EasyJSON](https://github.com/mailru/easyjson),
 and [Gabs](https://github.com/Jeffail/gabs)
 
@@ -242,7 +242,7 @@ JSON document used:
       "width": 500,
       "height": 500
     },
-    "image": { 
+    "image": {
       "src": "Images/Sun.png",
       "hOffset": 250,
       "vOffset": 250,

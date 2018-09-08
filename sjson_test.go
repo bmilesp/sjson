@@ -135,20 +135,20 @@ func TestBasic(t *testing.T) {
 	testRaw(t, setRaw,
 		`[ 1,2  ,3]`,
 		`  [ 1,2  ] `,
-		"-1", `3`)
+		"+1", `3`)
 	testRaw(t, setInt, `[1234]`, ``, `0`, int64(1234))
 	testRaw(t, setFloat, `[1234.5]`, ``, `0`, float64(1234.5))
 	testRaw(t, setString, `["1234.5"]`, ``, `0`, "1234.5")
 	testRaw(t, setBool, `[true]`, ``, `0`, true)
 	testRaw(t, setBool, `[null]`, ``, `0`, nil)
-	testRaw(t, setString, `{"arr":[1]}`, ``, `arr.-1`, 1)
+	testRaw(t, setString, `{"arr":[1]}`, ``, `arr.+1`, 1)
 }
 
 func TestDelete(t *testing.T) {
 	testRaw(t, setDelete, `[456]`, `[123,456]`, `0`, nil)
 	testRaw(t, setDelete, `[123,789]`, `[123,456,789]`, `1`, nil)
-	testRaw(t, setDelete, `[123,456]`, `[123,456,789]`, `-1`, nil)
-	testRaw(t, setDelete, `{"a":[123,456]}`, `{"a":[123,456,789]}`, `a.-1`, nil)
+	testRaw(t, setDelete, `[123,456]`, `[123,456,789]`, `+1`, nil)
+	testRaw(t, setDelete, `{"a":[123,456]}`, `{"a":[123,456,789]}`, `a.+1`, nil)
 	testRaw(t, setDelete, `{"and":"another"}`, `{"this":"that","and":"another"}`, `this`, nil)
 	testRaw(t, setDelete, `{"this":"that"}`, `{"this":"that","and":"another"}`, `and`, nil)
 	testRaw(t, setDelete, `{}`, `{"and":"another"}`, `and`, nil)
@@ -381,7 +381,7 @@ const benchJSON = `
       "width": 500,
       "height": 500
     },
-    "image": { 
+    "image": {
       "src": "Images/Sun.png",
       "hOffset": 250,
       "vOffset": 250,
@@ -396,7 +396,7 @@ const benchJSON = `
       "onMouseUp": "sun1.opacity = (sun1.opacity / 100) * 90;"
     }
   }
-}    
+}
 `
 
 type BenchStruct struct {

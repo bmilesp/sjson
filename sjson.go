@@ -128,7 +128,7 @@ func appendBuild(buf []byte, array bool, paths []pathResult, raw string,
 	}
 	if len(paths) > 1 {
 		n, numeric := atoui(paths[1])
-		if numeric || (!paths[1].force && paths[1].part == "-1") {
+		if numeric || (!paths[1].force && paths[1].part == "+1") {
 			buf = append(buf, '[')
 			buf = appendRepeat(buf, "null,", n)
 			buf = appendBuild(buf, true, paths[1:], raw, stringify)
@@ -240,7 +240,7 @@ func appendRawPaths(buf []byte, jstr string, paths []pathResult, raw string,
 	var res gjson.Result
 	var found bool
 	if del {
-		if paths[0].part == "-1" && !paths[0].force {
+		if paths[0].part == "+1" && !paths[0].force {
 			res = gjson.Get(jstr, "#")
 			if res.Int() > 0 {
 				res = gjson.Get(jstr, strconv.FormatInt(int64(res.Int()-1), 10))
@@ -341,7 +341,7 @@ func appendRawPaths(buf []byte, jstr string, paths []pathResult, raw string,
 	case '[':
 		var appendit bool
 		if !numeric {
-			if paths[0].part == "-1" && !paths[0].force {
+			if paths[0].part == "+1" && !paths[0].force {
 				appendit = true
 			} else {
 				return nil, &errorType{
